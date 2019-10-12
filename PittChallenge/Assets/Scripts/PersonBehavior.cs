@@ -48,6 +48,9 @@ public class PersonBehavior : MonoBehaviour
             Debug.Log("Next " + destination);
         }
 
+        if(sickness < 1)
+        sickness += .0005f;
+
         SetColor();
 
     }
@@ -58,5 +61,10 @@ public class PersonBehavior : MonoBehaviour
         objectColor = Color.Lerp(Color.white, Color.red, sickness);
         objectMaterial.color = objectColor;
         rnd.material = objectMaterial;
+    }
+
+    void SetSickness()
+    {
+
     }
 }
