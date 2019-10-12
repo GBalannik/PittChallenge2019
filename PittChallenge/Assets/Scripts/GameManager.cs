@@ -27,4 +27,5 @@ public class GameManager : MonoBehaviour
     {
         return locations[Random.Range(0, locations.Length)];
     }
+
 }

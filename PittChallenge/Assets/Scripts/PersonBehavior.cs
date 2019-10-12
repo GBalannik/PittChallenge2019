@@ -10,6 +10,7 @@ public class PersonBehavior : MonoBehaviour
     public Color objectColor;
     Material objectMaterial;
     Renderer rnd;
+    BoxCollider cc;
     GameManager gm;
 
     [Range(0, 1)]
@@ -23,10 +24,9 @@ public class PersonBehavior : MonoBehaviour
     void Start()
     {
         GameManager gm = GameManager.Instance;
-        age = Random.Range(25, 65);
         infectivity = Random.Range(.1f, 1f);
         closeness = Random.Range(.1f, 1f);
-        sickness = 0;
+        sickness = Random.Range(.01f, .1f);
 
 
         nma = gameObject.GetComponentInChildren<NavMeshAgent>();
@@ -35,23 +35,29 @@ public class PersonBehavior : MonoBehaviour
 
         rnd = gameObject.GetComponentInChildren<Renderer>();
         SetColor();
+
+        cc = GetComponentInChildren<BoxCollider>();
     }
 
     void Update()
     {
         GameManager gm = GameManager.Instance;
+        cc = GetComponentInChildren<BoxCollider>();
         if (nma.remainingDistance <= 3f)
         {
             Transform next = gm.getNextTarget();
             destination = next;
             nma.SetDestination(next.position);
-            Debug.Log("Next " + destination);
+            //Debug.Log("Next " + destination);
         }
 
-        if(sickness < 1)
-        sickness += .0005f;
+        incrementSickness();
 
         SetColor();
+
+        washHands();
+
+        vaccine();
 
     }
 
@@ -63,8 +69,41 @@ public class PersonBehavior : MonoBehaviour
         rnd.material = objectMaterial;
     }
 
-    void SetSickness()
+    void incrementSickness()
     {
+        if(Random.value < .02)
+        sickness += .0005f;
+    }
 
+    void washHands()
+    {
+        if (Random.value < .02)
+            sickness -= .005f;
+    }
+
+    void vaccine()
+    {
+        if (Random.value < .00001)
+            infectivity -= .5f;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameManager gm = GameManager.Instance;
+        if (other.gameObject.layer == 8)
+        {
+            
+            //sickness += gm.interact(other.gameObject);
+
+            if (Random.value < .5)
+            sickness += .05f;
+      
+
+            /*
+            PersonBehavior p2 = other.gameObject.GetComponent<PersonBehavior>();
+            sickness += p2.sickness * p2.infectivity * p2.closeness;
+            */
+
+        }
     }
 }

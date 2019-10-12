@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5919145199492214380}
   - component: {fileID: 5919145199492214383}
   - component: {fileID: 5919145199492214378}
-  m_Layer: 0
+  - component: {fileID: 2078116889870653439}
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5919145199492214369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -17.87}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5919145200376110730}
@@ -103,7 +104,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5919145199492214369}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 1.5
   m_Speed: 7.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -116,6 +117,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &2078116889870653439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5919145199492214369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.5, y: 2, z: 3.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5919145200376110732
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,9 +141,9 @@ GameObject:
   - component: {fileID: 5919145200376110730}
   - component: {fileID: 5919145200376110728}
   - component: {fileID: 5919145200376110733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Person
-  m_TagString: Untagged
+  m_TagString: Agents
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5919145200376110732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5919145199492214382}
