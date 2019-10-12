@@ -6,11 +6,13 @@ using UnityEngine.AI;
 public class PersonBehavior : MonoBehaviour
 {
     NavMeshAgent nma;
-    public Transform destination;
+    Transform destination;
     public Color objectColor;
     Material objectMaterial;
     Renderer rnd;
+    GameManager gm;
 
+    [Range(0, 1)]
     public float sickness;
     public float infectivity;
     public float closeness;
@@ -20,6 +22,7 @@ public class PersonBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager gm = GameManager.Instance;
         age = Random.Range(25, 65);
         infectivity = Random.Range(.1f, 1f);
         closeness = Random.Range(.1f, 1f);
@@ -27,20 +30,32 @@ public class PersonBehavior : MonoBehaviour
 
 
         nma = gameObject.GetComponentInChildren<NavMeshAgent>();
+        destination = gm.getNextTarget();
         nma.destination = destination.position;
 
         rnd = gameObject.GetComponentInChildren<Renderer>();
+        SetColor();
     }
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, destination.position) <= 3.0f)
-        { 
-            // nma.destination = Director.pickDestination();
-            Debug.Log("Destination Reached");
+        GameManager gm = GameManager.Instance;
+        if (nma.remainingDistance <= 3f)
+        {
+            Transform next = gm.getNextTarget();
+            destination = next;
+            nma.SetDestination(next.position);
+            Debug.Log("Next " + destination);
         }
 
+        SetColor();
+
+    }
+
+    void SetColor()
+    {
         objectMaterial = new Material(Shader.Find("Diffuse"));
+        objectColor = Color.Lerp(Color.white, Color.red, sickness);
         objectMaterial.color = objectColor;
         rnd.material = objectMaterial;
     }

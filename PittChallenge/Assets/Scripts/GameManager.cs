@@ -5,30 +5,26 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public static GameManager instance { get; private set; }
+    public static GameManager Instance { get; private set; }
+
+    public Transform[] locations = new Transform[4];
+    public GameObject[] people = new GameObject[10];
 
     void Awake()
     {
-        if(instance == null)
+        if(Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         } 
         else
         {
-            
+            Destroy(gameObject);
         }
     }
-    
-    // Start is called before the first frame update
-    void Start()
+ 
+    public Transform getNextTarget()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return locations[Random.Range(0, locations.Length)];
     }
 }
